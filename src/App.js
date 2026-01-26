@@ -8,7 +8,7 @@ import Modal from './Modal'
 
 function App() {
   const [amount, setAmount] = useState(10);
-  const { waiting, loading, error, errorMessage, questions, index, correct, isModalOpen, nextQuestion } = useGlobalContext();
+  const { questions, index, correct, nextQuestion, checkAnswer, waiting, loading, error, errorMessage, isModalOpen } = useGlobalContext();
   const { type, difficulty, category, question, correct_answer, incorrect_answers } = (questions[index]) || {};
   // Combine incorrect and correct answers, then shuffle
   const answers = incorrect_answers ? [...incorrect_answers, correct_answer].sort(() => Math.random() - 0.5) : [];
@@ -51,7 +51,7 @@ function App() {
             <div className="btn-container">
               {answers.map((answer, index) => {
                 return (
-                  <button key={index} className="answer-btn">
+                  <button key={index} className="answer-btn" onClick={() => checkAnswer(answer === correct_answer)}>
                     {answer}
                   </button>
                 )

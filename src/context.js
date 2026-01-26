@@ -40,6 +40,7 @@ const AppProvider = ({ children }) => {
       if (response.data.results.length > 0) {
         const data = response.data.results;
         // Batch all success state updates together
+        // const { results } = data;
         setQuestions(data);
         setLoading(false);
         setError(false);
@@ -74,7 +75,7 @@ const AppProvider = ({ children }) => {
   const nextQuestion = () => {
     setIndex((oldIndex) => {
       const index = oldIndex + 1;
-      if (index >= questions.length - 1) {
+      if (oldIndex == questions.length - 1) {
         return 0;
       }
       return index;
@@ -82,8 +83,8 @@ const AppProvider = ({ children }) => {
   }
 
   const checkAnswer = (answer) => {
-    if (answer === correct_answer) {
-      setCorrect(correct + 1);
+    if (answer) {
+      setCorrect((oldState) => oldState + 1);
     }
     nextQuestion();
   }
