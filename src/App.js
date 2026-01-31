@@ -15,34 +15,40 @@ function App() {
 
   if (waiting) {
     return (
-      <main>
-        <SetupForm amount={amount} category={category} difficulty={difficulty} setAmount={setAmount} />
-      </main>
+      <>
+        <main>
+          <SetupForm amount={amount} category={category} difficulty={difficulty} setAmount={setAmount} />
+        </main>
+      </>
     )
   }
   if (loading) {
     return (
-      <main>
-        <Loading />
-      </main>
+      <>
+        <main>
+          <Loading />
+        </main>
+      </>
     )
   }
   if (error) {
     return (
-      <main>
-        <div className="error">
-          <h2>Oops! Something went wrong</h2>
-          <p>{errorMessage || 'An error occurred while fetching questions.'}</p>
-          <button onClick={() => window.location.reload()}>Try Again</button>
-        </div>
-      </main>
+      <>
+        <main>
+          <div className="error">
+            <h2>Oops! Something went wrong</h2>
+            <p>{errorMessage || 'An error occurred while fetching questions.'}</p>
+            <button onClick={() => window.location.reload()}>Try Again</button>
+          </div>
+        </main>
+      </>
     )
   }
   return (
     <>
       <main>
         <section className="quiz">
-          <Modal isOpen={isModalOpen} />
+          {isModalOpen && <Modal isOpen={isModalOpen} />}
           <p className="correct-answers">
             correct answers: {correct}/{index}
           </p>
