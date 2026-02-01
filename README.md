@@ -36,13 +36,13 @@ A dynamic and interactive Quiz application built with React, leveraging the Open
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/aadhar-gaur/quiz-react-app.git
+   git clone https://github.com/aadhar41/quiz.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd quiz-react-app
+   cd quiz
    ```
 
 3. Install dependencies:
