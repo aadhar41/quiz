@@ -30,6 +30,7 @@ const AppProvider = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const hasFetched = useRef(false);
+  const [amount, setAmount] = useState(quiz.amount);
 
   const fetchQuestions = async (url) => {
     // Prevent duplicate calls in React Strict Mode
@@ -50,6 +51,8 @@ const AppProvider = ({ children }) => {
         setLoading(false);
         setError(false);
         setErrorMessage('');
+        setQuiz({ ...quiz, amount: quiz.amount });
+        setAmount(quiz.amount);
       } else {
         // Batch all "no results" state updates together
         setLoading(false);
@@ -82,6 +85,7 @@ const AppProvider = ({ children }) => {
       const index = oldIndex + 1;
       if (oldIndex == questions.length - 1) {
         openModal();
+        hasFetched.current = false;
         return 0;
       }
       return index;
@@ -105,7 +109,6 @@ const AppProvider = ({ children }) => {
   }
 
   const handleChange = (e) => {
-    console.log(e);
     const name = e.target.name;
     const value = e.target.value;
     setQuiz({ ...quiz, [name]: value });
@@ -113,15 +116,19 @@ const AppProvider = ({ children }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchQuestions(tempUrl);
+    const { amount, category, difficulty } = quiz;
+    const url = `${API_ENDPOINT}amount=${amount}&difficulty=${difficulty}&category=${table[category]}&type=multiple`;
+    fetchQuestions(url);
+    setAmount(amount);
+    setQuiz({ ...quiz, amount: amount });
+    setCorrect(0);
   }
 
-  useEffect(() => {
-    fetchQuestions(tempUrl);
-  }, []);
 
   // console.table("questions:- ", questions); return;
   return <AppContext.Provider value={{
+    amount,
+    setAmount,
     waiting,
     loading,
     error,

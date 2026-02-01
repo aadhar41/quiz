@@ -5,9 +5,10 @@ const SetupForm = () => {
   const { handleChange, handleSubmit, quiz, error } = useGlobalContext();
   return (
     <>
-      <section className="quiz" style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', height: '80vh', width: '80vw', margin: '0 auto', backgroundColor: '#fff', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+      <section className="quiz" >
         <form className="setup-form" onSubmit={handleSubmit}>
           <h2>setup form</h2>
+
           {/* amount */}
           <div className="form-control">
             <label htmlFor="amount">number of questions</label>

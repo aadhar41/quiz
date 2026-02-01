@@ -7,8 +7,7 @@ import Modal from './Modal'
 // import Question from './Question'
 
 function App() {
-  const [amount, setAmount] = useState(10);
-  const { questions, index, correct, nextQuestion, checkAnswer, waiting, loading, error, errorMessage, isModalOpen } = useGlobalContext();
+  const { amount, setAmount, questions, index, correct, nextQuestion, checkAnswer, waiting, loading, error, errorMessage, isModalOpen } = useGlobalContext();
   const { type, difficulty, category, question, correct_answer, incorrect_answers } = (questions[index]) || {};
   // Combine incorrect and correct answers, then shuffle
   const answers = incorrect_answers ? [...incorrect_answers, correct_answer].sort(() => Math.random() - 0.5) : [];
@@ -17,7 +16,7 @@ function App() {
     return (
       <>
         <main>
-          <SetupForm amount={amount} category={category} difficulty={difficulty} setAmount={setAmount} />
+          <SetupForm amount={amount} category={category} difficulty={difficulty} />
         </main>
       </>
     )
@@ -50,7 +49,7 @@ function App() {
         <section className="quiz">
           {isModalOpen && <Modal isOpen={isModalOpen} />}
           <p className="correct-answers">
-            correct answers: {correct}/{index}
+            correct answers:: {correct}/{amount}
           </p>
           <article className="container">
             <h2 className="question" dangerouslySetInnerHTML={{ __html: question }}></h2>
